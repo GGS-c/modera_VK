@@ -1,496 +1,379 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#102A43">
+  <meta name="description" content="Explore medical education opportunities with personalized counselling and admission guidance from Medora.">
+  <title>Medora | Medical Education Consultancy</title>
 
-    <title>Medora | Medical Education Consultancy</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { box-sizing: border-box; }
 
-    <style>
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
 
-        body {
-            font-family: 'DM Sans', sans-serif;
-        }
+    body {
+      margin: 0;
+      width: 100%;
+      overflow-x: hidden;
+      font-family: 'DM Sans', sans-serif;
+    }
 
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-        }
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+    }
 
-        .hero-gradient {
-            background: linear-gradient(
-                120deg,
-                #102A43,
-                #174A7E
-            );
-        }
+    img {
+      display: block;
+      max-width: 100%;
+    }
 
-        .text-teal {
-            color: #168C88;
-        }
+    .hero-gradient {
+      background: linear-gradient(120deg, #102A43, #174A7E);
+    }
 
-        .bg-teal {
-            background-color: #168C88;
-        }
+    .text-teal { color: #168C88; }
+    .bg-teal { background-color: #168C88; }
 
-        .service-card {
-            transition: all 0.3s ease;
-        }
+    .service-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        .service-card:hover {
-            transform: translateY(-8px);
-        }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 35px rgba(16, 42, 67, 0.10);
+    }
 
-    </style>
+    #mobileMenu a:focus-visible,
+    nav a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid #168C88;
+      outline-offset: 3px;
+    }
 
+    /* Keep the enquiry dialog usable on short screens and mobile devices. */
+    #enquiryModal {
+      padding: 16px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #enquiryModal .enquiry-card {
+      width: 100%;
+      max-width: 430px;
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
+    }
+
+    @media (max-width: 640px) {
+      #enquiryModal .enquiry-card {
+        max-height: calc(100dvh - 28px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
 
 <body class="bg-white text-gray-800">
 
-    <!-- NAVBAR -->
+  <!-- NAVBAR -->
+  <nav class="sticky top-0 z-50 bg-white shadow-sm" aria-label="Main navigation">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4">
+      <!-- Logo -->
+      <a href="index.html" class="flex min-w-0 flex-col" aria-label="Medora home">
+        <span class="font-bold text-3xl leading-none text-[#102A43]" style="font-family: Georgia, serif;">MEDORA.</span>
+        <span class="mt-1 text-xs tracking-[3px] text-[#168C88] sm:text-sm">MEDICAL EDUCATION</span>
+      </a>
 
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
+      <!-- Desktop navigation -->
+      <div class="hidden items-center gap-6 font-medium text-[#102A43] md:flex lg:gap-7">
+        <a href="index.html" class="transition hover:text-[#168C88]">Home</a>
+        <a href="pages/about.html" class="transition hover:text-[#168C88]">About</a>
+        <a href="pages/services.html" class="transition hover:text-[#168C88]">Services</a>
+        <a href="pages/destinations.html" class="transition hover:text-[#168C88]">Destinations</a>
+        <a href="pages/universities.html" class="transition hover:text-[#168C88]">Universities</a>
+        <a href="pages/contact.html" class="rounded-lg bg-[#168C88] px-5 py-3 text-white transition hover:bg-[#11736F]">Contact Us</a>
+      </div>
 
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <!-- Mobile menu button -->
+      <button
+        id="mobileMenuBtn"
+        type="button"
+        class="inline-flex h-11 w-11 items-center justify-center rounded-lg text-3xl leading-none text-[#102A43] transition hover:bg-gray-100 focus:outline-none md:hidden"
+        aria-label="Open navigation menu"
+        aria-controls="mobileMenu"
+        aria-expanded="false">
+        <span id="mobileMenuIcon" aria-hidden="true">☰</span>
+      </button>
+    </div>
 
-            <div>
-                <h2 class="text-2xl font-bold text-[#102A43]">
-                    MEDORA.
-                </h2>
+    <!-- Mobile navigation panel -->
+    <div id="mobileMenu" class="hidden border-t border-gray-100 bg-white md:hidden">
+      <div class="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-3 font-medium text-[#102A43]">
+        <a href="index.html" class="rounded-lg px-3 py-3 hover:bg-gray-50 hover:text-[#168C88]">Home</a>
+        <a href="pages/about.html" class="rounded-lg px-3 py-3 hover:bg-gray-50 hover:text-[#168C88]">About Us</a>
+        <a href="pages/services.html" class="rounded-lg px-3 py-3 hover:bg-gray-50 hover:text-[#168C88]">Our Services</a>
+        <a href="pages/destinations.html" class="rounded-lg px-3 py-3 hover:bg-gray-50 hover:text-[#168C88]">Destinations</a>
+        <a href="pages/universities.html" class="rounded-lg px-3 py-3 hover:bg-gray-50 hover:text-[#168C88]">Universities</a>
+        <a href="pages/admission.html" class="rounded-lg px-3 py-3 hover:bg-gray-50 hover:text-[#168C88]">Admission Process</a>
+        <a href="pages/contact.html" class="mt-2 rounded-lg bg-[#168C88] px-4 py-3 text-center text-white hover:bg-[#11736F]">Contact Us</a>
+      </div>
+    </div>
+  </nav>
 
-                <p class="text-xs tracking-widest text-teal">
-                    MEDICAL EDUCATION
-                </p>
-            </div>
-
-            <div class="hidden md:flex gap-8 items-center text-sm font-medium">
-
-                <a href="#" class="hover:text-teal">Home</a>
-                <a href="pages/about.html" class="hover:text-teal">About</a>
-                <a href="pages/services.html" class="hover:text-teal">Services</a>
-                <a href="pages/destinations.html" class="hover:text-teal">Destinations</a>
-                <a href="pages/universities.html" class="hover:text-teal">Universities</a>
-                <a href="pages/contact.html" class="hover:text-teal">Contact</a>
-
-            </div>
-
-            <a href="pages/contact.html"
-                class="hidden md:block bg-[#102A43] text-white px-6 py-3 rounded-full hover:bg-teal transition">
-
-                Free Consultation
-
-            </a>
-
-        </div>
-
-    </nav>
-
-
+  <main>
     <!-- HERO SECTION -->
-
     <section class="hero-gradient text-white">
+      <div class="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-5 py-16 sm:px-6 sm:py-20 md:grid-cols-2 md:gap-12 lg:py-24">
+        <div>
+          <p class="mb-5 text-sm font-bold uppercase tracking-widest text-[#45C1B6] sm:text-base">
+            Your Future In Medicine Starts Here
+          </p>
 
-        <div class="max-w-7xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-12 items-center">
+          <h1 class="text-4xl font-bold leading-[1.12] sm:text-5xl lg:text-6xl">
+            Your Dream Of Becoming A Doctor Starts With The Right Guidance.
+          </h1>
 
-            <div>
+          <p class="mt-6 max-w-xl text-base leading-7 text-gray-300 sm:text-lg sm:leading-8">
+            Explore global medical education opportunities with personalized counselling and professional admission guidance.
+          </p>
 
-                <p class="text-teal uppercase tracking-widest text-sm font-bold mb-5">
-                    Your Future In Medicine Starts Here
-                </p>
-
-                <h1 class="text-5xl md:text-6xl leading-tight font-bold">
-
-                    Your Dream Of Becoming A Doctor Starts With The Right Guidance.
-
-                </h1>
-
-                <p class="text-gray-300 mt-6 leading-8">
-
-                    Explore global medical education opportunities with personalized counselling and professional admission guidance.
-
-                </p>
-
-                <div class="flex flex-wrap gap-4 mt-9">
-
-                    <a href="pages/services.html"
-                        class="bg-teal px-7 py-4 rounded-full font-semibold hover:bg-white hover:text-[#102A43] transition">
-
-                        Explore Services →
-
-                    </a>
-
-                    <a href="pages/contact.html"
-                        class="border border-white px-7 py-4 rounded-full hover:bg-white hover:text-[#102A43] transition">
-
-                        Book Consultation
-
-                    </a>
-
-                </div>
-
-            </div>
-
-            <div>
-
-                <img
-                    src="assets/images/Medical Education Consultation Office.png"
-                    alt="Medical professional"
-                    class="rounded-3xl shadow-2xl w-full h-[480px] object-cover">
-
-            </div>
-
+          <div class="mt-8 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:gap-4">
+            <a href="pages/services.html" class="rounded-full bg-[#168C88] px-7 py-3.5 text-center font-semibold text-white transition hover:bg-white hover:text-[#102A43] sm:py-4">
+              Explore Services →
+            </a>
+            <a href="pages/contact.html" class="rounded-full border border-white px-7 py-3.5 text-center transition hover:bg-white hover:text-[#102A43] sm:py-4">
+              Book Consultation
+            </a>
+          </div>
         </div>
 
-    </section>
-
-
-    <!-- STATISTICS -->
-
-    <section class="py-16 bg-[#F5F8FC]">
-
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-
-            <div>
-                <h2 class="text-4xl font-bold text-[#102A43]">5K+</h2>
-                <p class="text-gray-500 mt-2">Students Guided</p>
-            </div>
-
-            <div>
-                <h2 class="text-4xl font-bold text-[#102A43]">25+</h2>
-                <p class="text-gray-500 mt-2">Universities</p>
-            </div>
-
-            <div>
-                <h2 class="text-4xl font-bold text-[#102A43]">15+</h2>
-                <p class="text-gray-500 mt-2">Destinations</p>
-            </div>
-
-            <div>
-                <h2 class="text-4xl font-bold text-[#102A43]">95%</h2>
-                <p class="text-gray-500 mt-2">Student Satisfaction</p>
-            </div>
-
+        <div class="w-full">
+          <img
+            src="assets/images/Medical Education Consultation Office.png"
+            alt="A student receiving medical education counselling"
+            class="h-64 w-full rounded-3xl object-cover shadow-2xl sm:h-80 md:h-[420px] lg:h-[480px]"
+            fetchpriority="high">
         </div>
-
+      </div>
     </section>
 
+    <!-- STATISTICS: Replace sample figures with verified company data before launch. -->
+    <section class="bg-[#F5F8FC] py-12 sm:py-16">
+      <div class="mx-auto grid max-w-7xl grid-cols-2 gap-7 px-5 text-center sm:px-6 md:grid-cols-4 md:gap-8">
+        <div>
+          <h2 class="text-3xl font-bold text-[#102A43] sm:text-4xl">5K+</h2>
+          <p class="mt-2 text-sm text-gray-500 sm:text-base">Students Guided</p>
+        </div>
+        <div>
+          <h2 class="text-3xl font-bold text-[#102A43] sm:text-4xl">25+</h2>
+          <p class="mt-2 text-sm text-gray-500 sm:text-base">Universities</p>
+        </div>
+        <div>
+          <h2 class="text-3xl font-bold text-[#102A43] sm:text-4xl">15+</h2>
+          <p class="mt-2 text-sm text-gray-500 sm:text-base">Destinations</p>
+        </div>
+        <div>
+          <h2 class="text-3xl font-bold text-[#102A43] sm:text-4xl">95%</h2>
+          <p class="mt-2 text-sm text-gray-500 sm:text-base">Student Satisfaction</p>
+        </div>
+      </div>
+    </section>
 
     <!-- ABOUT SECTION -->
+    <section class="py-16 sm:py-20 lg:py-24">
+      <div class="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-5 sm:px-6 md:grid-cols-2 md:gap-16">
+        <img
+          src="assets/images/pexels-photo-32213424.jpeg"
+          class="h-64 w-full rounded-3xl object-cover sm:h-80 md:h-[400px]"
+          alt="University students on campus"
+          loading="lazy">
 
-    <section class="py-24">
-
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-
-            <img
-                src="assets/images/pexels-photo-32213424.jpeg"
-                class="rounded-3xl w-full h-[400px] object-cover"
-                alt="University students">
-
-            <div>
-
-                <p class="text-teal font-bold tracking-widest text-sm">
-                    ABOUT OUR COMPANY
-                </p>
-
-                <h2 class="text-4xl text-[#102A43] font-bold mt-4 leading-tight">
-
-                    Building Pathways To A Brighter Medical Future.
-
-                </h2>
-
-                <p class="text-gray-500 leading-8 mt-6">
-
-                    We help aspiring medical students explore educational opportunities, choose suitable universities and navigate their admission journey.
-
-                </p>
-
-                <a href="pages/about.html"
-                    class="inline-block mt-8 bg-[#102A43] text-white px-7 py-4 rounded-full">
-
-                    Discover Our Story →
-
-                </a>
-
-            </div>
-
+        <div>
+          <p class="text-sm font-bold tracking-widest text-[#168C88]">ABOUT OUR COMPANY</p>
+          <h2 class="mt-4 text-3xl font-bold leading-tight text-[#102A43] sm:text-4xl">
+            Building Pathways To A Brighter Medical Future.
+          </h2>
+          <p class="mt-6 leading-8 text-gray-500">
+            We help aspiring medical students explore educational opportunities, choose suitable universities and navigate their admission journey.
+          </p>
+          <a href="pages/about.html" class="mt-7 inline-block rounded-full bg-[#102A43] px-7 py-3.5 text-white transition hover:bg-[#174A7E] sm:mt-8 sm:py-4">
+            Discover Our Story →
+          </a>
         </div>
-
+      </div>
     </section>
-
 
     <!-- SERVICES -->
-
-    <section class="py-24 bg-[#F5F8FC]">
-
-        <div class="max-w-7xl mx-auto px-6">
-
-            <div class="text-center mb-16">
-
-                <p class="text-teal font-bold tracking-widest">
-                    WHAT WE OFFER
-                </p>
-
-                <h2 class="text-4xl text-[#102A43] font-bold mt-4">
-                    Our Professional Services
-                </h2>
-
-                <p class="text-gray-500 mt-4">
-                    Complete guidance throughout your medical education journey.
-                </p>
-
-            </div>
-
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                <!-- Service 1 -->
-
-                <div class="service-card bg-white p-9 rounded-2xl shadow-sm">
-
-                    <i data-lucide="graduation-cap" class="text-teal w-10 h-10"></i>
-
-                    <h3 class="text-2xl text-[#102A43] mt-6">
-                        MBBS Admission
-                    </h3>
-
-                    <p class="text-gray-500 mt-4 leading-7">
-                        Guidance throughout the medical admission process.
-                    </p>
-
-                </div>
-
-
-                <!-- Service 2 -->
-
-                <div class="service-card bg-white p-9 rounded-2xl shadow-sm">
-
-                    <i data-lucide="globe" class="text-teal w-10 h-10"></i>
-
-                    <h3 class="text-2xl text-[#102A43] mt-6">
-                        Study Abroad
-                    </h3>
-
-                    <p class="text-gray-500 mt-4 leading-7">
-                        Explore international medical education opportunities.
-                    </p>
-
-                </div>
-
-
-                <!-- Service 3 -->
-
-                <div class="service-card bg-white p-9 rounded-2xl shadow-sm">
-
-                    <i data-lucide="building-2" class="text-teal w-10 h-10"></i>
-
-                    <h3 class="text-2xl text-[#102A43] mt-6">
-                        University Selection
-                    </h3>
-
-                    <p class="text-gray-500 mt-4 leading-7">
-                        Find suitable universities based on your preferences.
-                    </p>
-
-                </div>
-
-
-                <!-- Service 4 -->
-
-                <div class="service-card bg-white p-9 rounded-2xl shadow-sm">
-
-                    <i data-lucide="book-open" class="text-teal w-10 h-10"></i>
-
-                    <h3 class="text-2xl text-[#102A43] mt-6">
-                        NEET Guidance
-                    </h3>
-
-                    <p class="text-gray-500 mt-4 leading-7">
-                        Understand eligibility and admission requirements.
-                    </p>
-
-                </div>
-
-
-                <!-- Service 5 -->
-
-                <div class="service-card bg-white p-9 rounded-2xl shadow-sm">
-
-                    <i data-lucide="file-check" class="text-teal w-10 h-10"></i>
-
-                    <h3 class="text-2xl text-[#102A43] mt-6">
-                        Documentation
-                    </h3>
-
-                    <p class="text-gray-500 mt-4 leading-7">
-                        Assistance with application and documentation.
-                    </p>
-
-                </div>
-
-
-                <!-- Service 6 -->
-
-                <div class="service-card bg-white p-9 rounded-2xl shadow-sm">
-
-                    <i data-lucide="plane" class="text-teal w-10 h-10"></i>
-
-                    <h3 class="text-2xl text-[#102A43] mt-6">
-                        Visa Assistance
-                    </h3>
-
-                    <p class="text-gray-500 mt-4 leading-7">
-                        Guidance for visa and pre-departure preparation.
-                    </p>
-
-                </div>
-
-            </div>
-
+    <section class="bg-[#F5F8FC] py-16 sm:py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-5 sm:px-6">
+        <div class="mb-10 text-center sm:mb-16">
+          <p class="font-bold tracking-widest text-[#168C88]">WHAT WE OFFER</p>
+          <h2 class="mt-4 text-3xl font-bold text-[#102A43] sm:text-4xl">Our Professional Services</h2>
+          <p class="mt-4 text-gray-500">Complete guidance throughout your medical education journey.</p>
         </div>
 
-    </section>
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-7 lg:grid-cols-3 lg:gap-8">
+          <div class="service-card rounded-2xl bg-white p-6 shadow-sm sm:p-9">
+            <i data-lucide="graduation-cap" class="h-10 w-10 text-[#168C88]"></i>
+            <h3 class="mt-6 text-xl text-[#102A43] sm:text-2xl">MBBS Admission</h3>
+            <p class="mt-4 leading-7 text-gray-500">Guidance throughout the medical admission process.</p>
+          </div>
 
+          <div class="service-card rounded-2xl bg-white p-6 shadow-sm sm:p-9">
+            <i data-lucide="globe" class="h-10 w-10 text-[#168C88]"></i>
+            <h3 class="mt-6 text-xl text-[#102A43] sm:text-2xl">Study Abroad</h3>
+            <p class="mt-4 leading-7 text-gray-500">Explore international medical education opportunities.</p>
+          </div>
+
+          <div class="service-card rounded-2xl bg-white p-6 shadow-sm sm:p-9">
+            <i data-lucide="building-2" class="h-10 w-10 text-[#168C88]"></i>
+            <h3 class="mt-6 text-xl text-[#102A43] sm:text-2xl">University Selection</h3>
+            <p class="mt-4 leading-7 text-gray-500">Find suitable universities based on your preferences.</p>
+          </div>
+
+          <div class="service-card rounded-2xl bg-white p-6 shadow-sm sm:p-9">
+            <i data-lucide="book-open" class="h-10 w-10 text-[#168C88]"></i>
+            <h3 class="mt-6 text-xl text-[#102A43] sm:text-2xl">NEET Guidance</h3>
+            <p class="mt-4 leading-7 text-gray-500">Understand eligibility and admission requirements.</p>
+          </div>
+
+          <div class="service-card rounded-2xl bg-white p-6 shadow-sm sm:p-9">
+            <i data-lucide="file-check" class="h-10 w-10 text-[#168C88]"></i>
+            <h3 class="mt-6 text-xl text-[#102A43] sm:text-2xl">Documentation</h3>
+            <p class="mt-4 leading-7 text-gray-500">Assistance with application and documentation.</p>
+          </div>
+
+          <div class="service-card rounded-2xl bg-white p-6 shadow-sm sm:p-9">
+            <i data-lucide="plane" class="h-10 w-10 text-[#168C88]"></i>
+            <h3 class="mt-6 text-xl text-[#102A43] sm:text-2xl">Visa Assistance</h3>
+            <p class="mt-4 leading-7 text-gray-500">Guidance for visa and pre-departure preparation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- CTA -->
-
-    <section class="py-24">
-
-        <div class="max-w-6xl mx-auto px-6">
-
-            <div class="hero-gradient rounded-3xl p-12 md:p-20 text-center text-white">
-
-                <h2 class="text-4xl md:text-5xl font-bold">
-
-                    Your Medical Career Deserves The Right Beginning.
-
-                </h2>
-
-                <p class="text-gray-300 mt-6">
-
-                    Let's explore the right medical education opportunities for your future.
-
-                </p>
-
-                <a href="pages/contact.html"
-                    class="inline-block bg-teal px-8 py-4 rounded-full mt-9 font-semibold">
-
-                    Get Free Consultation →
-
-                </a>
-
-            </div>
-
+    <section class="py-16 sm:py-20 lg:py-24">
+      <div class="mx-auto max-w-6xl px-5 sm:px-6">
+        <div class="hero-gradient rounded-3xl px-6 py-12 text-center text-white sm:px-10 sm:py-16 lg:px-20 lg:py-20">
+          <h2 class="text-3xl font-bold sm:text-4xl lg:text-5xl">Your Medical Career Deserves The Right Beginning.</h2>
+          <p class="mt-6 text-gray-300">Let's explore the right medical education opportunities for your future.</p>
+          <a href="pages/contact.html" class="mt-8 inline-block rounded-full bg-[#168C88] px-8 py-3.5 font-semibold text-white transition hover:bg-white hover:text-[#102A43] sm:mt-9 sm:py-4">
+            Get Free Consultation →
+          </a>
         </div>
-
+      </div>
     </section>
+  </main>
 
+  <!-- FOOTER -->
+  <footer class="bg-[#102A43] py-12 text-white">
+    <div class="mx-auto max-w-7xl px-5 sm:px-6">
+      <h2 class="text-3xl font-bold">MEDORA.</h2>
+      <p class="mt-4 max-w-md leading-7 text-gray-400">
+        Guiding aspiring medical professionals towards global education opportunities.
+      </p>
+      <div class="mt-10 border-t border-gray-700 pt-7 text-sm text-gray-400">
+        © 2026 Medora. All rights reserved.
+      </div>
+    </div>
+  </footer>
 
-    <!-- FOOTER -->
+  <!-- FIRST-SCROLL ENQUIRY POPUP -->
+  <div
+    id="enquiryModal"
+    class="fixed inset-0 z-[9999] hidden items-center justify-center bg-[#102A43]/60 px-4 py-5 backdrop-blur-sm"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="enquiryTitle">
 
-    <footer class="bg-[#102A43] text-white py-12">
+    <div class="enquiry-card relative rounded-2xl bg-white p-6 shadow-2xl sm:p-8">
+      <button
+        id="closeEnquiry"
+        type="button"
+        class="absolute right-4 top-3 inline-flex h-9 w-9 items-center justify-center rounded-full text-2xl text-gray-400 transition hover:bg-gray-100 hover:text-gray-800"
+        aria-label="Close enquiry form">&times;</button>
 
-        <div class="max-w-7xl mx-auto px-6">
+      <div class="mb-6 pr-7 text-center">
+        <span class="text-xs font-semibold uppercase tracking-widest text-[#168C88] sm:text-sm">Welcome to Medora</span>
+        <h2 id="enquiryTitle" class="mt-3 text-2xl font-bold text-[#102A43] sm:text-3xl">Let's Start Your MBBS Journey</h2>
+        <p class="mt-2 text-sm leading-6 text-gray-500">Share your details and our counsellor will guide you.</p>
+      </div>
 
-            <h2 class="text-3xl font-bold">MEDORA.</h2>
+      <form id="popupEnquiryForm" class="space-y-4">
+        <label class="sr-only" for="popupName">Your name</label>
+        <input
+          id="popupName"
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          required
+          maxlength="80"
+          autocomplete="name"
+          class="w-full rounded-lg border border-gray-200 px-4 py-3 text-base outline-none transition focus:border-[#168C88] focus:ring-2 focus:ring-[#168C88]/20">
 
-            <p class="text-gray-400 mt-4 max-w-md">
+        <label class="sr-only" for="popupPhone">Mobile number</label>
+        <input
+          id="popupPhone"
+          type="tel"
+          name="phone"
+          placeholder="10-digit Mobile Number"
+          required
+          pattern="[0-9]{10}"
+          maxlength="10"
+          inputmode="numeric"
+          autocomplete="tel-national"
+          class="w-full rounded-lg border border-gray-200 px-4 py-3 text-base outline-none transition focus:border-[#168C88] focus:ring-2 focus:ring-[#168C88]/20">
 
-                Guiding aspiring medical professionals towards global education opportunities.
+        <label class="flex items-start gap-2 text-xs leading-5 text-gray-500">
+          <input type="checkbox" name="consent" required class="mt-1 accent-[#168C88]">
+          <span>I agree to be contacted about my enquiry.</span>
+        </label>
 
-            </p>
-
-            <div class="border-t border-gray-700 mt-10 pt-7 text-gray-400 text-sm">
-
-                © 2026 Medora. All rights reserved.
-
-            </div>
-
-        </div>
-
-    </footer>
-
-
-    <script>
-        lucide.createIcons();
-    </script>
-<!-- First Visit Enquiry Popup -->
-<div id="enquiryModal"
-     class="fixed inset-0 z-[9999] hidden items-center justify-center
-            bg-[#102A43]/50 backdrop-blur-sm px-4">
-
-    <div class="relative bg-white w-full max-w-md rounded-2xl
-                shadow-2xl p-7 md:p-8">
-
-        <!-- Close Button -->
-        <button id="closeEnquiry"
-                class="absolute right-4 top-4 text-gray-400
-                       hover:text-gray-800 text-2xl">
-            &times;
+        <button
+          type="submit"
+          class="w-full rounded-lg bg-[#168C88] py-3.5 font-semibold text-white transition hover:bg-[#11736F] focus:outline-none focus:ring-2 focus:ring-[#168C88] focus:ring-offset-2">
+          Request a Call Back →
         </button>
 
-        <!-- Heading -->
-        <div class="text-center mb-6">
-            <span class="text-[#168C88] text-sm font-semibold tracking-widest uppercase">
-                Welcome to Medora
-            </span>
+        <p id="popupMessage" class="hidden text-center text-sm" aria-live="polite"></p>
+      </form>
 
-            <h2 class="text-2xl font-bold text-[#102A43] mt-3">
-                Let's Start Your MBBS Journey
-            </h2>
-
-            <p class="text-gray-500 text-sm mt-2">
-                Leave your details and our counsellor will guide you.
-            </p>
-        </div>
-
-        <!-- Form -->
-        <form id="popupEnquiryForm" class="space-y-4">
-
-            <input
-                type="text"
-                name="name"
-                placeholder="Your Name"
-                required
-                maxlength="80"
-                autocomplete="name"
-                class="w-full border border-gray-200 rounded-lg px-4 py-3
-                       focus:outline-none focus:border-[#168C88]">
-
-            <input
-                type="tel"
-                name="phone"
-                placeholder="Mobile Number"
-                required
-                pattern="[0-9]{10}"
-                maxlength="10"
-                inputmode="numeric"
-                autocomplete="tel-national"
-                class="w-full border border-gray-200 rounded-lg px-4 py-3
-                       focus:outline-none focus:border-[#168C88]">
-
-            <button type="submit"
-                    class="w-full bg-[#168C88] text-white py-3 rounded-lg
-                           font-semibold hover:bg-[#11736F] transition">
-                Request a Call Back →
-            </button>
-
-            <p id="popupMessage"
-               class="text-sm text-center hidden"></p>
-        </form>
-
-        <p class="text-xs text-gray-400 text-center mt-5">
-            Your details will only be used to respond to your enquiry.
-        </p>
-
+      <p class="mt-5 text-center text-xs leading-5 text-gray-400">
+        Your details will only be used to respond to your enquiry.
+      </p>
     </div>
-</div>
+  </div>
+
+  <!-- Initialize Lucide icons and load site interactions. -->
+  <script>
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  </script>
+  <script src="assets/js/script.js"></script>
 </body>
 </html>
